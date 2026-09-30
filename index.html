@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NAVEGaid License Admin</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 880px; margin: 0 auto; padding: 24px 20px 80px; line-height: 1.5; color: #14141b; background: #fbfbfa; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    h2 { font-size: 16px; margin: 0 0 12px; }
+    p.sub { color: #63636e; margin: 0 0 24px; }
+    section { background: #fff; border: 1px solid #e3e3e0; border-radius: 10px; padding: 18px; margin-bottom: 18px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin: 12px 0 4px; }
+    label span { font-weight: 400; color: #63636e; }
+    input { width: 100%; padding: 9px 10px; font-size: 15px; border: 1px solid #c9c9c4; border-radius: 6px; background: #fff; }
+    input:focus-visible, button:focus-visible { outline: 3px solid #a5c8ff; outline-offset: 1px; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .row > * { flex: 1 1 210px; }
+    button { margin-top: 14px; padding: 10px 16px; font-size: 15px; font-weight: 600; border: 0; border-radius: 6px; background: #14141b; color: #fff; cursor: pointer; }
+    button.small { margin: 0; padding: 5px 10px; font-size: 13px; font-weight: 500; background: #f0f0ee; color: #14141b; border: 1px solid #d6d6d1; }
+    button:disabled { opacity: .5; cursor: default; }
+    .msg { margin-top: 14px; padding: 12px; border-radius: 6px; font-size: 14px; }
+    .msg.ok { background: #e7f6ec; }
+    .msg.err { background: #fdeceb; }
+    .code { font-family: ui-monospace, Menlo, monospace; font-size: 20px; letter-spacing: .5px; margin: 8px 0; word-break: break-all; }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+    th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid #ededea; vertical-align: top; }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #63636e; }
+    td.mono { font-family: ui-monospace, Menlo, monospace; word-break: break-all; }
+    .tag { display: inline-block; padding: 1px 7px; border-radius: 99px; font-size: 12px; background: #e7f6ec; }
+    .tag.off { background: #fdeceb; }
+    .muted { color: #63636e; font-size: 12px; }
+    .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <h1>License Admin</h1>
+  <p class="sub">Create activation codes for buyers, then send them via Etsy Messages.</p>
+
+  <section>
+    <h2>Connection</h2>
+    <div class="row">
+      <div>
+        <label for="base">Server URL</label>
+        <input id="base" placeholder="https://license.navegaid.com">
+      </div>
+      <div>
+        <label for="token">Admin token</label>
+        <input id="token" type="password" placeholder="ADMIN_TOKEN">
+      </div>
+    </div>
+    <button id="connect">Connect</button>
+    <div id="connect-msg"></div>
+  </section>
+
+  <section id="create-box" hidden>
+    <h2>Create a new code</h2>
+    <div class="row">
+      <div>
+        <label for="theme">Theme ID</label>
+        <input id="theme" list="theme-list" placeholder="navegaid-beauty">
+        <datalist id="theme-list"></datalist>
+      </div>
+      <div>
+        <label for="order">Order ID <span>(required)</span></label>
+        <input id="order" placeholder="3456789012">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="email">Buyer email <span>(optional)</span></label>
+        <input id="email" type="email" placeholder="buyer@mail.com">
+      </div>
+      <div>
+        <label for="note">Note <span>(optional)</span></label>
+        <input id="note" placeholder="sent via Etsy Messages">
+      </div>
+    </div>
+    <button id="create">Create code</button>
+    <div id="create-msg"></div>
+  </section>
+
+  <section id="search-box" hidden>
+    <h2>Find &amp; manage codes</h2>
+    <label for="q">Search <span>(code / order ID / store domain / email)</span></label>
+    <input id="q" placeholder="leave empty to show the 50 most recent">
+    <button id="search">Search</button>
+    <div id="search-msg"></div>
+    <div id="results"></div>
+  </section>
+
+  <script src="admin.js"></script>
+</body>
+</html>
